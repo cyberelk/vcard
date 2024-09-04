@@ -1,0 +1,100 @@
+#ddev-generated
+
+http:
+  routers:
+    
+    
+    ElkeSteltnerWebsite-web-80-http:
+      
+      rule: HostRegexp(`elkesteltnerwebsite.ddev.site`)
+      
+      middlewares:
+        - autodetect
+      service: "ElkeSteltnerWebsite-web-80-http"
+      tls: false
+      entrypoints:
+        - http-80
+    
+    
+    ElkeSteltnerWebsite-web-8025-http:
+      
+      rule: HostRegexp(`elkesteltnerwebsite.ddev.site`)
+      
+      middlewares:
+        - autodetect
+      service: "ElkeSteltnerWebsite-web-8025-http"
+      tls: false
+      entrypoints:
+        - http-8025
+    
+    
+    
+    
+    
+    
+    ElkeSteltnerWebsite-web-80-https:
+      
+      rule: HostRegexp(`elkesteltnerwebsite.ddev.site`)
+      
+      middlewares:
+        - autodetect
+      service: "ElkeSteltnerWebsite-web-80-https"
+      
+      tls: true
+      
+      entrypoints:
+        - http-443
+    
+    
+    ElkeSteltnerWebsite-web-8025-https:
+      
+      rule: HostRegexp(`elkesteltnerwebsite.ddev.site`)
+      
+      middlewares:
+        - autodetect
+      service: "ElkeSteltnerWebsite-web-8025-https"
+      
+      tls: true
+      
+      entrypoints:
+        - http-8026
+    
+    
+
+  # autodetect won't be needed in Traefik 3 https://github.com/traefik/traefik/pull/9546
+  middlewares:
+    autodetect:
+      contentType:
+        autoDetect: false
+
+  services:
+    
+    ElkeSteltnerWebsite-web-80-http:
+      loadbalancer:
+        servers:
+          - url: http://ddev-ElkeSteltnerWebsite-web:80
+    
+    ElkeSteltnerWebsite-web-8025-http:
+      loadbalancer:
+        servers:
+          - url: http://ddev-ElkeSteltnerWebsite-web:8025
+    
+    ElkeSteltnerWebsite-web-80-https:
+    
+      loadbalancer:
+        servers:
+          - url: http://ddev-ElkeSteltnerWebsite-web:80
+    
+    ElkeSteltnerWebsite-web-8025-https:
+    
+      loadbalancer:
+        servers:
+          - url: http://ddev-ElkeSteltnerWebsite-web:8025
+    
+
+
+tls:
+  certificates:
+    - certFile: /mnt/ddev-global-cache/traefik/certs/ElkeSteltnerWebsite.crt
+      keyFile: /mnt/ddev-global-cache/traefik/certs/ElkeSteltnerWebsite.key
+
