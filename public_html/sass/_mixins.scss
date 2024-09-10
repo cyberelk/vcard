@@ -29,3 +29,18 @@
 	-webkit-transform: scale($val);
 	transform: scale($val);
 }
+
+@mixin font($font-family, $font-file, $weight, $style) {
+    @font-face {
+      font-family: $font-family;
+      src: url($font-file+'.eot');
+      src: url($font-file+'.eot?#iefix') format('embedded-opentype'),
+           url($font-file+'.woff') format('woff'),
+           url($font-file+'.woff2') format('woff2'),
+           url($font-file+'.ttf') format('truetype'),
+           url($font-file+'.svg#'+$font-family) format('svg');
+      font-weight: $weight;
+      font-style: $style;
+    }
+  }
+  
