@@ -20,15 +20,15 @@ require './phpmailer/src/SMTP.php';
   // Receiver's Email
 --------------------------------------------- */
 
-$toEmail = "your-email@website.com"; // Replace Your Email Address
+$toEmail = "jari-hermann.ernst@t-online.de"; // Replace Your Email Address
 
 
 /* --------------------------------------------
   // Sender's Email
 --------------------------------------------- */
 
-$fromEmail = "no-reply@website.com";  // Replace Company's Email Address (preferably currently used Domain Name)
-$fromName = "Company Name"; // Replace Company Name
+$fromEmail = "no-reply@jhernst.de";  // Replace Company's Email Address (preferably currently used Domain Name)
+$fromName = "Jari-Hermann Ernst, M.A."; // Replace Company Name
 
 
 /* --------------------------------------------
@@ -42,7 +42,7 @@ $recaptcha_secret = 'YOUR_RECAPTCHA_SECRET_KEY'; // Your Google reCaptcha Secret
 /* --------------------------------------------
   // Subject
 --------------------------------------------- */
-$subject = "Form Response from Your Website"; // Your Subject
+$subject = "Vom Formular der Webseite"; // Your Subject
 
 
 if (isset($_POST['name'])) {
