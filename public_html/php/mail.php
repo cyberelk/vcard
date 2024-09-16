@@ -1,13 +1,5 @@
 <?php
 
-/*--------------------------------------------------
-
-	Name: 			Contact Form
-	Written by: 	Harnish Design
-	Website: 		http://www.harnishdesign.net
-
-----------------------------------------------------*/
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -16,34 +8,37 @@ require './phpmailer/src/PHPMailer.php';
 require './phpmailer/src/SMTP.php';
 
 
-/* --------------------------------------------
-  // Receiver's Email
---------------------------------------------- */
-
-$toEmail = "jari-hermann.ernst@t-online.de"; // Replace Your Email Address
-
-
-/* --------------------------------------------
-  // Sender's Email
---------------------------------------------- */
-
+$toEmail = "jari@jhernst.de"; // Replace Your Email Address
 $fromEmail = "no-reply@jhernst.de";  // Replace Company's Email Address (preferably currently used Domain Name)
 $fromName = "Jari-Hermann Ernst, M.A."; // Replace Company Name
-
-
-/* --------------------------------------------
-  // reCaptcha Secret
-  --------------------------------------------- */
 
 // Add this only if you want to use Google reCaptcha with your Contact Forms.
 $recaptcha_secret = 'YOUR_RECAPTCHA_SECRET_KEY'; // Your Google reCaptcha Secret
 
+$subject = "Vom Formular der Online-Visitenkarte"; // Your Subject
 
-/* --------------------------------------------
-  // Subject
---------------------------------------------- */
-$subject = "Vom Formular der Webseite"; // Your Subject
+$lang = isset($_POST['lang']) ? $_POST['lang'] : 'en';
 
+$messages = [
+	'de' => [
+		'name' => 'Name:',
+		'email' => 'E-Mail:',
+		'message' => 'Nachricht:',
+		'success' => 'Vielen Dank, dass Du mit mir Kontakt aufgenommen hast. Ich werde mich sehr bald mit Dir in Verbindung setzen.',
+		'couldnotbesent' => 'Nachricht konnte nicht gesendet werden: ',
+		'invalidrecievermail' => 'Es gibt eine ungültige Empfänger-E-Mail-Adresse!',
+		'generalproblem' => 'Es gibt ein generelles Problem mit dem Formular!'
+	],
+	'en' => [
+		'name' => 'Name:',
+		'email' => 'Email:',
+		'message' => 'Message:',
+		'success' => 'Thank you for contacting me. I will be in touch with you very soon.',
+		'couldnotbesent' => 'Message could not be sent: ',
+		'invalidrecievermail' => 'There is a invalid Receivers Email address!',
+		'generalproblem' => 'There is a general problem with the form!'
+	]
+];
 
 if (isset($_POST['name'])) {
 
@@ -74,15 +69,15 @@ if (filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
 							<td align="center" valign="top">
 								<table width="600" bgcolor="#f8f6fe" cellpadding="7" style="font-size:16px; padding:30px; line-height: 28px;">
 									<tr>
-										<td style="text-align:right; padding-right: 20px;" width="100" valign="top"><strong>Name:</strong></td>
+										<td style="text-align:right; padding-right: 20px;" width="100" valign="top"><strong>' . $messages[$lang]['name'] . '</strong></td>
 										<td>' . $_POST['name'] . '</td>
 									</tr>
 									<tr>
-										<td style="text-align:right; padding-right: 20px;" width="100" valign="top"><strong>Email:</strong></td>
+										<td style="text-align:right; padding-right: 20px;" width="100" valign="top"><strong>' . $messages[$lang]['email'] . '</strong></td>
 										<td>' . $_POST['email'] . '</td>
 									</tr>
 									<tr>
-										<td style="text-align:right; padding-right: 20px;" width="100" valign="top"><strong>Message:</strong></td>
+										<td style="text-align:right; padding-right: 20px;" width="100" valign="top"><strong>' . $messages[$lang]['message'] . '</strong></td>
 										<td>' . $_POST['form-message'] . '</td>
 									</tr>
 								</table>
@@ -142,25 +137,23 @@ if (filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
 	}
 	//----- reCaptcha End -----//
 
-	$success = "Thank you for contacting us and will be in touch with you very soon."; // Success Message
-
 	try {
 		$resp = $mail->send();
-		echo json_encode(array('response' => 'success', 'Message' => '<div class="alert alert-success alert-dismissible fade show text-start"><i class="fa fa-check-circle"></i> ' . $success . ' <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
+		echo json_encode(array('response' => 'success', 'Message' => '<div class="alert alert-success alert-dismissible fade show text-start"><i class="fa fa-check-circle"></i> ' . $messages[$lang]['success'] . ' <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
 		exit;
 	} catch (Exception $e) {
-		echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> Message could not be sent: ' . $e->errorMessage() . '<button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
+		echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> ' . $messages[$lang]['couldnotbesent'] . $e->errorMessage() . '<button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
 		exit;
 	} catch (\Exception $e) {
-		echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> Message could not be sent: ' . $e->getMessage() . '<button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
+		echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> ' . $messages[$lang]['couldnotbesent'] . $e->getMessage() . '<button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
 		exit;
 	}
 } else {
-	echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> There is a invalid <strong>Receivers Email</strong> address! <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
+	echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> ' . $messages[$lang]['invalidrecievermail'] . ' <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
 	exit;
 }
 } else {
-    echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> There is a problem with the document! <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
+    echo json_encode(array('response' => 'error', 'Message' => '<div class="alert alert-danger alert-dismissible fade show text-start"><i class="fa fa-exclamation-triangle me-1"></i> ' . $messages[$lang]['generalproblem'] . ' <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
     exit;
 }
 ?>

@@ -427,22 +427,21 @@
 					</div>
 					<div class="col-md-8 col-xl-9 order-0 order-md-1">
 						<h2 class="mb-3 text-5 text-uppercase text-center text-md-start">Schick mir eine Nachricht</h2>
-			<form id="contact-form" action="php/mail.php" method="post">
-							
-				<div class="row g-4">
+						<form id="contact-form" action="php/mail.php" method="post">
+							<input type="hidden" value="de" name="lang" />
+							<div class="row g-4">
 								<div class="col-xl-6">
-										<input name="name" type="text" class="form-control" required placeholder="Name">
+									<input name="name" type="text" class="form-control" required placeholder="Name">
 								</div>
 								<div class="col-xl-6">
-										<input name="email" type="email" class="form-control" required placeholder="E-Mail">
+									<input name="email" type="email" class="form-control" required placeholder="E-Mail">
 								</div>
-				<div class="col">
-					<textarea name="form-message" class="form-control" rows="5" required placeholder="Erzähl mir mehr über Deine Anforderungen..."></textarea>
-				</div>
+								<div class="col">
+									<textarea name="form-message" class="form-control" rows="5" required placeholder="Erzähl mir mehr über Deine Anforderungen..."></textarea>
+								</div>
 							</div>
-				
 							<p class="text-center mt-4 mb-0">
-				<button id="submit-btn" class="btn btn-primary rounded-pill d-inline-flex" type="submit">Absenden</button>
+								<button id="submit-btn" class="btn btn-primary rounded-pill d-inline-flex" type="submit">Absenden</button>
 							</p>
 						</form>
 					</div>
