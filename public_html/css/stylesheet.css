@@ -2404,14 +2404,34 @@ html[dir="rtl"] .nav.nav-separator .nav-item + .nav-item .nav-link:after {
 }
 
 .hero-wrap .hero-bg {
-  z-index: 0;
-  background-attachment: fixed;
-  background-position: center center;
-  background-repeat: no-repeat;
+  background-image: url('../images/intro-bg.jpg');
+  background-position: center center; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
+  z-index: 0;
   transition: background-image 300ms ease-in 200ms;
+}
+
+@media only screen and (max-width: 991px) { 
+  .hero-wrap .hero-bg {
+    /* The file size of this background image is 93% smaller to improve page load speed on mobile internet connections */
+    background-image: url('../images/intro-bg-md.jpg');
+  }
+}
+@media only screen and (max-width: 767px) { 
+  .hero-wrap .hero-bg {
+    /* The file size of this background image is 93% smaller to improve page load speed on mobile internet connections */
+    background-image: url('../images/intro-bg-sm.jpg');
+  }
+}
+@media only screen and (max-width: 575px) { 
+  .hero-wrap .hero-bg {
+    /* The file size of this background image is 93% smaller to improve page load speed on mobile internet connections */
+    background-image: url('../images/intro-bg-xs.jpg');
+  }
 }
 
 .hero-wrap .hero-bg.hero-bg-scroll {
