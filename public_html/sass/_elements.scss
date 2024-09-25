@@ -581,6 +581,7 @@ background-color: rgba(250,250,250,0.2);
   }
   .hero-bg {
     z-index: 0;
+    background-image: url('../images/intro-bg.jpg');
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
@@ -588,6 +589,19 @@ background-color: rgba(250,250,250,0.2);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     transition: background-image 300ms ease-in 200ms;
+
+    @include media-breakpoint-down(sm) {
+      background-image: url('../images/intro-bg-xs.jpg');
+    }
+
+    @include media-breakpoint-down(md) {
+      background-image: url('../images/intro-bg-sm.jpg');
+    }
+
+    @include media-breakpoint-down(lg) {
+      background-image: url('../images/intro-bg-md.jpg');
+    }
+
 	&.hero-bg-scroll{
 		background-attachment: scroll;
 	}
