@@ -28,29 +28,6 @@ jobs:
 
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.SERVER_REMOTE_HOST }} >> ~/.ssh/known_hosts
-      
-      - name: Deploy to Production via rsync
-        # https://github.com/easingthemes/ssh-deploy
-        uses: easingthemes/ssh-deploy@v2
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          
-          # rsync arguments explained (more detail here: https://ss64.com/bash/rsync_options.html)
-          # -r, --recursive This tells rsync to copy directories recursively. See also --dirs (-d).
-          # -l, --links When symlinks are encountered, recreate the symlink on the destination.
-          # -t, --times This tells rsync to transfer modification times along with the files and update them on the remote system.        
-          # -D The -D option is equivalent to --devices --specials. 
-          # -z, --compress With this option, rsync compresses the file data as it is sent to the destination machine
-          # -v, --verbose This option increases the amount of information you are given during the transfer. 
-          # -O, --omit-dir-times This tells rsync to omit directories when it is preserving modification times (see --times).
-          # --delete This tells rsync to delete extraneous files from the receiving side (ones that aren't on the sending side),
-          #          but only for the directories that are being synchronized.
-          
-          ARGS: "-av --progress --delete --dry-run"
-          
-          # SOURCE is excluded here, defaults to root of repository. For post-build deploys, see example below:
-          # SOURCE: "public/"
-          REMOTE_HOST: ${{ secrets.SERVER_REMOTE_HOST }} # format host.domain.com or IP
-          REMOTE_USER: ${{ secrets.SERVER_REMOTE_USER }} # SSH user on receiving end
-          TARGET: ${{ secrets.SERVER_REMOTE_TARGET }}    # Base target directory, ex: /home/user/public_html
-          EXCLUDE: ""           # Exclude specific files and directories
+
+      - name: Deploy with rsync
+        run: rsync -avz --progress --exclude="" --dry-run ./dist/ ${{ secrets.SERVER_REMOTE_USER}}@${{ secrets.SERVER_REMOTE_HOST }}:${{ secrets.SERVER_REMOTE_TARGET }}
