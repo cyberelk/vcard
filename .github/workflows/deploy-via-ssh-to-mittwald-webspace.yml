@@ -1,23 +1,4 @@
-name: Deploy via rsync
-
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
-#
-# To add additional options, such as triggering when the main branch is updated, add:
-# on:
-#   push:
-#     branches:
-#       - main
-#
-# More info: https://docs.github.com/en/actions/reference/events-that-trigger-workflows
-#
-# Requires 4 secret keys:
-#
-# PRODUCTION_SERVER_SSH_KEY       --Private SSH key
-# PRODUCTION_SERVER_REMOTE_USER   --SSH user on receiving end
-# PRODUCTION_SERVER_REMOTE_HOST   --host.domain.com or IP
-# PRODUCTION_SERVER_REMOTE_TARGET --Base target directory, ex: /home/user/public_html
-#
+name: Deploy via rsync to Mittwald webspace
 on:
   push:
     branches:
@@ -53,11 +34,11 @@ jobs:
           # --delete This tells rsync to delete extraneous files from the receiving side (ones that aren't on the sending side),
           #          but only for the directories that are being synchronized.
           
-          ARGS: "-rltDzvO --delete --dry-run"
+          ARGS: "-av --progress --delete --dry-run"
           
           # SOURCE is excluded here, defaults to root of repository. For post-build deploys, see example below:
           # SOURCE: "public/"
           REMOTE_HOST: ${{ secrets.SERVER_REMOTE_HOST }} # format host.domain.com or IP
           REMOTE_USER: ${{ secrets.SERVER_REMOTE_USER }} # SSH user on receiving end
           TARGET: ${{ secrets.SERVER_REMOTE_TARGET }}    # Base target directory, ex: /home/user/public_html
-          EXCLUDE: "keys.php, README.md, logs, .gitignore, .github"           # Exclude specific files and directories
+          EXCLUDE: ""           # Exclude specific files and directories
