@@ -14,6 +14,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Test secrets...
+        run: echo ${{ secrets.SERVER_REMOTE_HOST }}; echo ${{ secrets.SERVER_REMOTE_USER }}
+
+
+    
       - name: Checkout Branch
         uses: actions/checkout@v2
       
