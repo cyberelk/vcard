@@ -8,14 +8,14 @@ require './phpmailer/src/PHPMailer.php';
 require './phpmailer/src/SMTP.php';
 
 
-$toEmail = "jari@jhernst.de"; // Replace Your Email Address
+$toEmail = "vcard@jhernst.de"; // Replace Your Email Address
 $fromEmail = "no-reply@jhernst.de";  // Replace Company's Email Address (preferably currently used Domain Name)
 $fromName = "Jari-Hermann Ernst, M.A."; // Replace Company Name
 
 // Add this only if you want to use Google reCaptcha with your Contact Forms.
 $recaptcha_secret = 'YOUR_RECAPTCHA_SECRET_KEY'; // Your Google reCaptcha Secret
 
-$subject = "Vom Formular der Online-Visitenkarte"; // Your Subject
+$subject = "vcard Mail"; // Your Subject
 
 $lang = isset($_POST['lang']) ? $_POST['lang'] : 'en';
 
