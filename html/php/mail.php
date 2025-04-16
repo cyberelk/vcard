@@ -40,6 +40,12 @@ $messages = [
 	]
 ];
 
+$url = isset($_POST['url']) ? $_POST['url'] : '';
+if ($url != '') {
+	echo json_encode(array('response' => 'success', 'Message' => '<div class="alert alert-success alert-dismissible fade show text-start"><i class="fa fa-check-circle"></i> ' . $messages[$lang]['success'] . ' <button type="button" class="btn-close text-1 mt-1" data-bs-dismiss="alert"></button></div>'));
+	exit;
+}
+
 if (isset($_POST['name'])) {
 
 /*-------------------------------------------------
