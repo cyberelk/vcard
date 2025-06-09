@@ -469,8 +469,9 @@
 						<h2 class="mb-3 text-5 text-uppercase text-center text-md-start">Schick mir eine Nachricht</h2>
 						<form id="contact-form" action="php/mail.php" method="post">
 							<input type="hidden" value="de" name="lang" />
-							<div class="row g-4">			<div class="col-xl-6" style="position: absolute; left: -9999px">
-        							<input type="text" id="website-url" name="url" rtabindex="-1" autocomplete="nope"	 class="form-control" placeholder="Website" />
+							<div class="row g-4">			
+								<div class="col-xl-6" id="div-website-url">
+        							<input type="text" id="website-url" name="url" rtabindex="-1" autocomplete="nope" class="form-control" placeholder="Website" />
    								</div>
 								<div class="col-xl-6">
 									<input name="name" type="text" class="form-control" required placeholder="Name">
