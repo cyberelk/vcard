@@ -5,5 +5,8 @@
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
     "sass": "^1.79.4"
+  },
+  "allowScripts": {
+    "fsevents": false
   }
 }
